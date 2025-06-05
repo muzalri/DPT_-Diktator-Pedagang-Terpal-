@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFuture - Growing Sustainable Tomorrow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E7D32',
+                        secondary: '#4CAF50',
+                        accent: '#81C784',
+                        light: '#E8F5E9',
+                        dark: '#1B5E20',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <nav class="fixed w-full bg-primary px-5 py-4 flex justify-between items-center z-50">
+        <div class="text-2xl font-bold text-white">EcoFuture</div>
+        <div class="hidden md:flex space-x-8">
+            <a href="#home" class="text-white hover:text-accent transition-colors">Home</a>
+            <a href="#about" class="text-white hover:text-accent transition-colors">About</a>
+            <a href="#recycling" class="text-white hover:text-accent transition-colors">3R Initiative</a>
+            <a href="#ecosystem" class="text-white hover:text-accent transition-colors">Ecosystem</a>
+            <a href="#contact" class="bg-accent hover:bg-dark text-white px-4 py-2 rounded-full transition-colors">Join Us</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="h-screen flex items-center justify-center text-center text-white bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('path-to-your-hero-image.jpg')">
+        <div class="px-4">
+            <h1 class="text-6xl md:text-7xl font-bold mb-2">Grow Up The Future.</h1>
+            <h2 class="text-3xl md:text-4xl text-accent mb-4">With code and creativity.</h2>
+            <p class="text-xl mb-8">Together, let's build a sustainable tomorrow through technology and innovation.</p>
+            <button class="bg-accent hover:bg-dark px-8 py-3 rounded-full transition-colors">Learn More</button>
+        </div>
+    </section>
+
+    <section id="recycling" class="py-20 px-4 md:px-20">
+        <h2 class="text-4xl font-bold text-center mb-12 text-primary">3R Initiative</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-light p-8 rounded-lg text-center hover:-translate-y-2 transition-transform">
+                <h3 class="text-2xl font-bold text-primary mb-4">Reduce</h3>
+                <p class="text-gray-700">Minimize waste by consuming less and choosing eco-friendly products.</p>
+            </div>
+            <div class="bg-light p-8 rounded-lg text-center hover:-translate-y-2 transition-transform">
+                <h3 class="text-2xl font-bold text-primary mb-4">Reuse</h3>
+                <p class="text-gray-700">Give items a second life by finding new ways to use them.</p>
+            </div>
+            <div class="bg-light p-8 rounded-lg text-center hover:-translate-y-2 transition-transform">
+                <h3 class="text-2xl font-bold text-primary mb-4">Recycle</h3>
+                <p class="text-gray-700">Transform waste materials into new products to conserve resources.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ecosystem" class="bg-primary text-white py-20 px-4 md:px-20">
+        <h2 class="text-4xl font-bold text-center mb-8">Protecting Our Ecosystem</h2>
+        <div class="text-center max-w-3xl mx-auto">
+            <p class="text-xl">Every action counts in preserving our planet's delicate balance.</p>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white py-4 text-center">
+        <p>&copy; 2024 UCDC - UKM Cyber STMIK AMIKOM Surakarta</p>
+    </footer>
+</body>
+</html>
