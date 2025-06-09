@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="emerald">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Bank Sampah - Temukan Bank Sampah Terdekat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #065f46, #047857, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        #map {
+            height: 500px;
+            border-radius: 1rem;
+            border: 3px solid #10b981;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .custom-popup {
+            font-family: inherit;
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .legend-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-base-100">
+    <!-- Navigation -->
+    <nav class="navbar gradient-bg shadow-lg fixed top-0 z-50" data-aos="fade-down">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a href="#home" class="text-green-700">Beranda</a></li>
+                    <li><a href="#map-section" class="text-green-700">Peta</a></li>
+                    <li><a href="#data-section" class="text-green-700">Data</a></li>
+                </ul>
+            </div>
+            <a class="btn btn-ghost normal-case text-xl text-white font-bold">
+                <i class="fas fa-map-marker-alt mr-2"></i>EcoLife Peta
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 text-white font-medium">
+                <li><a href="#home" class="hover:bg-green-600">Beranda</a></li>
+                <li><a href="#map-section" class="hover:bg-green-600">Peta</a></li>
+                <li><a href="#data-section" class="hover:bg-green-600">Data</a></li>
+            </ul>
+        </div>
+        <div class="navbar-end">
+            <button class="btn btn-ghost text-white">
+                <i class="fas fa-plus mr-2"></i>Tambah Lokasi
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero min-h-screen gradient-bg relative overflow-hidden">
+        <div class="hero-content text-center text-white relative z-10">
+            <div class="max-w-4xl" data-aos="fade-up" data-aos-duration="1000">
+                <div class="floating mb-8">
+                    <i class="fas fa-map-marked-alt text-8xl opacity-20 absolute -top-10 -left-10"></i>
+                    <i class="fas fa-recycle text-6xl opacity-20 absolute -bottom-5 -right-5"></i>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight" data-aos="fade-up" data-aos-delay="200">
+                    Temukan Bank Sampah <span class="text-yellow-300">Terdekat</span> di Sekitarmu
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                    Buang sampah sembarangan? Sudah bukan zamannya! Yuk, mulai kelola sampah dengan lebih bijak. Gunakan fitur peta interaktif ini untuk menemukan lokasi bank sampah, TPS3R, dan titik daur ulang terdekat dari tempat tinggalmu. Bingung mau buang sampah atau mendonasikan barang bekas seperti baju, buku, atau alat elektronik? Kami juga menyediakan informasi lembaga dan komunitas penerima donasi barang bekas agar barangmu tidak berakhir di TPA. Dukung bumi yang lebih bersih dan bermakna dengan satu klik!
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="600">
+                    <button class="btn btn-lg bg-white text-green-600 hover:bg-green-50 border-none shadow-xl" onclick="scrollToMap()">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Cek Lokasi Sekarang
+                    </button>
+                    <button class="btn btn-lg btn-outline text-white border-white hover:bg-white hover:text-green-600" onclick="openAddLocationModal()">
+                        <i class="fas fa-plus mr-2"></i>
+                        Tambahkan Bank Sampah Baru
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 floating" style="animation-delay: -1s;">
+            <div class="w-20 h-20 bg-green-300 rounded-full opacity-20"></div>
+        </div>
+        <div class="absolute bottom-20 right-10 floating" style="animation-delay: -3s;">
+            <div class="w-32 h-32 bg-green-400 rounded-full opacity-15"></div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map-section" class="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+        <div class="container mx-auto px-4">
+            <!-- Search and Filter Section -->
+            <div class="mb-8" data-aos="fade-up">
+                <div class="card bg-white shadow-xl">
+                    <div class="card-body">
+                        <h3 class="text-2xl font-bold gradient-text mb-6 text-center">
+                            <i class="fas fa-search mr-2"></i>Cari dan Filter Lokasi
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-semibold">Cari berdasarkan lokasi atau nama</span>
+                                </label>
+                                <input type="text" id="searchLocation" placeholder="Ketik nama kota atau alamat..." class="input input-bordered w-full focus:border-green-500" />
+                            </div>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-semibold">Filter berdasarkan jenis</span>
+                                </label>
+                                <select id="filterType" class="select select-bordered w-full focus:border-green-500">
+                                    <option value="">Semua Jenis</option>
+                                    <option value="bank_sampah">Bank Sampah</option>
+                                    <option value="tps3r">TPS3R</option>
+                                    <option value="daur_ulang">Titik Daur Ulang</option>
+                                    <option value="donasi">Penerima Donasi</option>
+                                </select>
+                            </div>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-semibold">Jenis sampah yang diterima</span>
+                                </label>
+                                <select id="filterWasteType" class="select select-bordered w-full focus:border-green-500">
+                                    <option value="">Semua Sampah</option>
+                                    <option value="organik">Organik</option>
+                                    <option value="plastik">Plastik</option>
+                                    <option value="kertas">Kertas</option>
+                                    <option value="logam">Logam</option>
+                                    <option value="elektronik">Elektronik</option>
+                                    <option value="tekstil">Tekstil</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Container with Legend -->
+            <div class="mb-8" data-aos="fade-up" data-aos-delay="200">
+                <div class="card bg-white shadow-xl">
+                    <div class="card-body p-6">
+                        <h3 class="text-2xl font-bold gradient-text mb-4 text-center">
+                            <i class="fas fa-map mr-2"></i>Peta Interaktif Bank Sampah
+                        </h3>
+                        
+                        <!-- Legend -->
+                        <div class="legend-container p-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                            <h4 class="font-bold text-lg gradient-text mb-3 text-center">
+                                <i class="fas fa-info-circle mr-2"></i>Legenda Peta
+                            </h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="flex items-center">
+                                    <span class="legend-icon" style="background-color: green;"></span>
+                                    <span class="text-sm font-medium">Bank Sampah</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="legend-icon" style="background-color: blue;"></span>
+                                    <span class="text-sm font-medium">TPS3R</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="legend-icon" style="background-color: orange;"></span>
+                                    <span class="text-sm font-medium">Titik Daur Ulang</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="legend-icon" style="background-color: purple;"></span>
+                                    <span class="text-sm font-medium">Penerima Donasi</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Table Section -->
+    <section id="data-section" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6">
+                    Database Bank Sampah
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Temukan informasi lengkap tentang bank sampah, jam operasional, dan kontak pengelola
+                </p>
+            </div>
+
+            <div class="card bg-white shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-body">
+                    <div class="overflow-x-auto">
+                        <table id="bankSampahTable" class="table table-zebra w-full">
+                            <thead>
+                                <tr class="bg-gradient-to-r from-green-500 to-emerald-500 text-white">
+                                    <th>Nama</th>
+                                    <th>Jenis</th>
+                                    <th>Alamat</th>
+                                    <th>Jam Operasional</th>
+                                    <th>Kontak</th>
+                                    <th>Sampah Diterima</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Location Modal -->
+    <dialog id="addLocationModal" class="modal">
+        <div class="modal-box w-11/12 max-w-2xl">
+            <h3 class="font-bold text-lg gradient-text mb-4">
+                <i class="fas fa-plus-circle mr-2"></i>Tambahkan Bank Sampah Baru
+            </h3>
+            <form id="addLocationForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Nama</span>
+                        </label>
+                        <input type="text" name="name" placeholder="Nama bank sampah" class="input input-bordered" required />
+                    </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Jenis</span>
+                        </label>
+                        <select name="type" class="select select-bordered" required>
+                            <option value="">Pilih Jenis</option>
+                            <option value="bank_sampah">Bank Sampah</option>
+                            <option value="tps3r">TPS3R</option>
+                            <option value="daur_ulang">Titik Daur Ulang</option>
+                            <option value="donasi">Penerima Donasi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Alamat</span>
+                    </label>
+                    <textarea name="address" placeholder="Alamat lengkap" class="textarea textarea-bordered" required></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Latitude</span>
+                        </label>
+                        <input type="number" step="any" name="lat" placeholder="-6.2000" class="input input-bordered" required />
+                    </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Longitude</span>
+                        </label>
+                        <input type="number" step="any" name="lng" placeholder="106.8000" class="input input-bordered" required />
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Jam Operasional</span>
+                        </label>
+                        <input type="text" name="hours" placeholder="Senin-Jumat 08:00-16:00" class="input input-bordered" required />
+                    </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Kontak</span>
+                        </label>
+                        <input type="text" name="contact" placeholder="08123456789" class="input input-bordered" required />
+                    </div>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Jenis Sampah yang Diterima</span>
+                    </label>
+                    <div class="flex flex-wrap gap-2">
+                        <label class="cursor-pointer label">
+                            <input type="checkbox" name="wasteTypes" value="organik" class="checkbox checkbox-sm" />
+                            <span class="label-text ml-2">Organik</span>
+                        </label>
+                        <label class="cursor-pointer label">
+                            <input type="checkbox" name="wasteTypes" value="plastik" class="checkbox checkbox-sm" />
+                            <span class="label-text ml-2">Plastik</span>
+                        </label>
+                        <label class="cursor-pointer label">
+                            <input type="checkbox" name="wasteTypes" value="kertas" class="checkbox checkbox-sm" />
+                            <span class="label-text ml-2">Kertas</span>
+                        </label>
+                        <label class="cursor-pointer label">
+                            <input type="checkbox" name="wasteTypes" value="logam" class="checkbox checkbox-sm" />
+                            <span class="label-text ml-2">Logam</span>
+                        </label>
+                        <label class="cursor-pointer label">
+                            <input type="checkbox" name="wasteTypes" value="elektronik" class="checkbox checkbox-sm" />
+                            <span class="label-text ml-2">Elektronik</span>
+                        </label>
+                        <label class="cursor-pointer label">
+                            <input type="checkbox" name="wasteTypes" value="tekstil" class="checkbox checkbox-sm" />
+                            <span class="label-text ml-2">Tekstil</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-action">
+                    <button type="button" class="btn" onclick="closeAddLocationModal()">Batal</button>
+                    <button type="submit" class="btn bg-green-500 text-white hover:bg-green-600">
+                        <i class="fas fa-save mr-2"></i>Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-gradient-to-r from-green-800 to-emerald-800 text-white">
+        <aside>
+            <div class="text-4xl mb-4">
+                <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <p class="font-bold text-xl">EcoLife Peta Bank Sampah</p>
+            <p class="opacity-80">Menyelamatkan bumi, satu langkah pada satu waktu</p>
+            <p class="opacity-60">Copyright © 2025 - Dibuat dengan ❤️ untuk Bumi</p>
+        </aside>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // Sample data for bank sampah
+        const bankSampahData = [
+            {
+                id: 1,
+                name: "Bank Sampah Gemah Ripah",
+                type: "bank_sampah",
+                address: "Jl. Malioboro No. 123, Yogyakarta",
+                lat: -7.7956,
+                lng: 110.3695,
+                hours: "Senin-Jumat 08:00-16:00",
+                contact: "0812-3456-7890",
+                wasteTypes: ["organik", "plastik", "kertas"]
+            },
+            {
+                id: 2,
+                name: "TPS3R Sejahtera",
+                type: "tps3r",
+                address: "Jl. Sudirman No. 456, Jakarta",
+                lat: -6.2088,
+                lng: 106.8456,
+                hours: "Senin-Sabtu 07:00-17:00",
+                contact: "0813-4567-8901",
+                wasteTypes: ["organik", "plastik", "logam", "kertas"]
+            },
+            {
+                id: 3,
+                name: "Pusat Daur Ulang Plastik",
+                type: "daur_ulang",
+                address: "Jl. Diponegoro No. 789, Bandung",
+                lat: -6.9175,
+                lng: 107.6191,
+                hours: "Senin-Jumat 09:00-15:00",
+                contact: "0814-5678-9012",
+                wasteTypes: ["plastik"]
+            },
+            {
+                id: 4,
+                name: "Komunitas Peduli Lingkungan",
+                type: "donasi",
+                address: "Jl. Pahlawan No. 321, Surabaya",
+                lat: -7.2575,
+                lng: 112.7521,
+                hours: "Senin-Minggu 08:00-20:00",
+                contact: "0815-6789-0123",
+                wasteTypes: ["tekstil", "elektronik", "kertas"]
+            },
+            {
+                id: 5,
+                name: "Bank Sampah Hijau Lestari",
+                type: "bank_sampah",
+                address: "Jl. Gatot Subroto No. 654, Medan",
+                lat: 3.5952,
+                lng: 98.6722,
+                hours: "Selasa-Sabtu 08:30-16:30",
+                contact: "0816-7890-1234",
+                wasteTypes: ["organik", "plastik", "kertas", "logam"]
+            }
+        ];
+
+        // Initialize map
+        let map;
+        let markers = [];
+
+        function initMap() {
+            map = L.map('map').setView([-6.2088, 106.8456], 5);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Add markers for all locations
+            addMarkersToMap(bankSampahData);
+        }
+
+        function addMarkersToMap(data) {
+            // Clear existing markers
+            markers.forEach(marker => {
+                map.removeLayer(marker);
+            });
+            markers = [];
+
+            data.forEach(location => {
+                const icon = getIconByType(location.type);
+                const marker = L.marker([location.lat, location.lng], { icon }).addTo(map);
+                
+                const popupContent = `
+                    <div class="custom-popup">
+                        <h3 class="font-bold text-lg text-green-600 mb-2">${location.name}</h3>
+                        <p class="mb-2"><i class="fas fa-map-marker-alt text-red-500 mr-1"></i> ${location.address}</p>
+                        <p class="mb-2"><i class="fas fa-clock text-blue-500 mr-1"></i> ${location.hours}</p>
+                        <p class="mb-2"><i class="fas fa-phone text-green-500 mr-1"></i> ${location.contact}</p>
+                        <p class="mb-2"><i class="fas fa-recycle text-orange-500 mr-1"></i> ${location.wasteTypes.join(', ')}</p>
+                        <div class="mt-3">
+                            <button class="btn btn-sm bg-green-500 text-white" onclick="getDirections(${location.lat}, ${location.lng})">
+                                <i class="fas fa-directions mr-1"></i> Rute
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                marker.bindPopup(popupContent);
+                markers.push(marker);
+            });
+        }
+
+        function getIconByType(type) {
+            const iconColors = {
+                'bank_sampah': 'green',
+                'tps3r': 'blue',
+                'daur_ulang': 'orange',
+                'donasi': 'purple'
+            };
+            
+            return L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div style="background-color: ${iconColors[type] || 'gray'}; width: 25px; height: 25px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`,
+                iconSize: [25, 25],
+                iconAnchor: [12, 12]
+            });
+        }
+
+        function getDirections(lat, lng) {
+            const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+            window.open(url, '_blank');
+        }
+
+        // Initialize DataTable
+        let dataTable;
+
+        function initDataTable() {
+            dataTable = $('#bankSampahTable').DataTable({
+                data: bankSampahData,
+                columns: [
+                    { data: 'name' },
+                    { 
+                        data: 'type',
+                        render: function(data) {
+                            const typeNames = {
+                                'bank_sampah': 'Bank Sampah',
+                                'tps3r': 'TPS3R',
+                                'daur_ulang': 'Daur Ulang',
+                                'donasi': 'Penerima Donasi'
+                            };
+                            return `<span class="badge badge-outline">${typeNames[data] || data}</span>`;
+                        }
+                    },
+                    { data: 'address' },
+                    { data: 'hours' },
+                    { data: 'contact' },
+                    { 
+                        data: 'wasteTypes',
+                        render: function(data) {
+                            return data.map(type => `<span class="badge badge-sm badge-primary mr-1">${type}</span>`).join('');
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `
+                                <div class="flex gap-2">
+                                    <button class="btn btn-sm btn-primary" onclick="viewOnMap(${row.lat}, ${row.lng})">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="getDirections(${row.lat}, ${row.lng})">
+                                        <i class="fas fa-directions"></i>
+                                    </button>
+                                </div>
+                            `;
+                        }
+                    }
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/id.json'
+                },
+                responsive: true,
+                pageLength: 10
+            });
+        }
+
+        function viewOnMap(lat, lng) {
+            map.setView([lat, lng], 15);
+            scrollToMap();
+        }
+
+        // Filter functions
+        function filterData() {
+            const searchText = document.getElementById('searchLocation').value.toLowerCase();
+            const filterType = document.getElementById('filterType').value;
+            const filterWasteType = document.getElementById('filterWasteType').value;
+
+            let filteredData = bankSampahData.filter(location => {
+                const matchesSearch = location.name.toLowerCase().includes(searchText) || 
+                                    location.address.toLowerCase().includes(searchText);
+                const matchesType = !filterType || location.type === filterType;
+                const matchesWasteType = !filterWasteType || location.wasteTypes.includes(filterWasteType);
+
+                return matchesSearch && matchesType && matchesWasteType;
+            });
+
+            // Update map markers
+            addMarkersToMap(filteredData);
+
+            // Update DataTable
+            dataTable.clear().rows.add(filteredData).draw();
+        }
+
+        // Modal functions
+        function openAddLocationModal() {
+            document.getElementById('addLocationModal').showModal();
+        }
+
+        function closeAddLocationModal() {
+            document.getElementById('addLocationModal').close();
+            document.getElementById('addLocationForm').reset();
+        }
+
+        function scrollToMap() {
+            document.getElementById('map-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add location form handler
+        document.getElementById('addLocationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const wasteTypes = [];
+            
+            document.querySelectorAll('input[name="wasteTypes"]:checked').forEach(checkbox => {
+                wasteTypes.push(checkbox.value);
+            });
+
+            const newLocation = {
+                id: bankSampahData.length + 1,
+                name: formData.get('name'),
+                type: formData.get('type'),
+                address: formData.get('address'),
+                lat: parseFloat(formData.get('lat')),
+                lng: parseFloat(formData.get('lng')),
+                hours: formData.get('hours'),
+                contact: formData.get('contact'),
+                wasteTypes: wasteTypes
+            };
+
+            // Add to data array
+            bankSampahData.push(newLocation);
+            
+            // Update map and table
+            addMarkersToMap(bankSampahData);
+            dataTable.row.add(newLocation).draw();
+            
+            // Close modal and show success message
+            closeAddLocationModal();
+            alert('Lokasi berhasil ditambahkan!');
+        });
+
+        // Event listeners for filters
+        document.getElementById('searchLocation').addEventListener('input', filterData);
+        document.getElementById('filterType').addEventListener('change', filterData);
+        document.getElementById('filterWasteType').addEventListener('change', filterData);
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            initDataTable();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
