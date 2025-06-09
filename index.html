@@ -118,9 +118,9 @@
                     <i class="fas fa-bars text-xl"></i>
                 </div>
                 <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a href="#home" class="text-green-700">Beranda</a></li>
-                    <li><a href="#stats" class="text-green-700">Statistik</a></li>
-                    <li><a href="#solutions" class="text-green-700">Solusi</a></li>
+                    <li><a href="index.html" class="text-green-700">Beranda</a></li>
+                    <li><a href="peta.html" class="text-green-700">Bank Sampah</a></li>
+                    <li><a href="sampahpedia.html" class="text-green-700">Sampah Pedia</a></li>
                 </ul>
             </div>
             <a class="btn btn-ghost normal-case text-xl text-white font-bold">
@@ -129,9 +129,9 @@
         </div>
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1 text-white font-medium">
-                <li><a href="#home" class="hover:bg-green-600">Beranda</a></li>
-                <li><a href="#stats" class="hover:bg-green-600">Statistik</a></li>
-                <li><a href="#solutions" class="hover:bg-green-600">Solusi</a></li>
+                <li><a href="index.html" class="hover:bg-green-600">Beranda</a></li>
+                <li><a href="peta.html" class="hover:bg-green-600">Bank Sampah</a></li>
+                <li><a href="sampahpedia.html" class="hover:bg-green-600">Sampah Pedia</a></li>
             </ul>
         </div>
         <div class="navbar-end">
@@ -168,14 +168,15 @@
                     <strong>Reduce</strong> konsumsi berlebihan, <strong>Reuse</strong> barang yang masih layak, dan <strong>Recycle</strong> sampah menjadi sesuatu yang berguna. Mari bersama-sama menciptakan masa depan yang berkelanjutan untuk generasi mendatang.
                 </p>
                 <div class="flex flex-col md:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="600">
-                    <button class="btn btn-lg bg-white text-green-600 hover:bg-green-50 border-none shadow-xl pulse-green">
-                        <i class="fas fa-play mr-2"></i>
-                        Mulai Aksi Sekarang
-                    </button>
-                    <button class="btn btn-lg bg-white text-green-600 hover:bg-green-50 border-none shadow-xl pulse-green">
+                    <button onclick="document.getElementById('stats').scrollIntoView({ behavior: 'smooth' });" class="btn btn-lg bg-white text-green-600 hover:bg-green-50 border-none shadow-xl pulse-green">
                         <i class="fas fa-info-circle mr-2"></i>
                         Pelajari Lebih Lanjut
                     </button>
+                    <button onclick="document.getElementById('solutions').scrollIntoView({ behavior: 'smooth' });" class="btn btn-lg bg-white text-green-600 hover:bg-green-50 border-none shadow-xl pulse-green">
+                        <i class="fas fa-play mr-2"></i>
+                        Mulai Aksi Sekarang
+                    </button>
+                    
                 </div>
             </div>
         </div>
