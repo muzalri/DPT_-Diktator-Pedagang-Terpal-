@@ -60,6 +60,17 @@
             border-radius: 1rem;
             margin-bottom: 1rem;
         }
+        
+        .r3-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .reduce-badge { background: #fee2e2; color: #dc2626; }
+        .reuse-badge { background: #dbeafe; color: #2563eb; }
+        .recycle-badge { background: #dcfce7; color: #16a34a; }
     </style>
 </head>
 <body class="bg-base-100">
@@ -209,10 +220,10 @@
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6">
-                    <i class="fas fa-list mr-3"></i>Contoh Sampah
+                    <i class="fas fa-list mr-3"></i>Contoh Sampah & 3R
                 </h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Berbagai jenis sampah yang termasuk dalam kategori ini beserta cara pengelolaannya
+                    Berbagai jenis sampah yang termasuk dalam kategori ini beserta cara pengelolaan 3R-nya
                 </p>
             </div>
 
@@ -273,7 +284,7 @@
     </footer>
 
     <script>
-        // Category data with Unsplash images
+        // Category data with complete 3R information for all examples
         const categoryData = {
             organik: {
                 title: "Sampah Organik",
@@ -319,37 +330,55 @@
                     {
                         name: "Sisa Makanan",
                         description: "Nasi, sayur, buah yang tidak habis dimakan",
-                        tips: "Jadikan kompos atau pakan ternak setelah dipastikan aman",
+                        reduce: "Masak sesuai porsi yang dibutuhkan",
+                        reuse: "Olah sisa menjadi makanan baru atau pakan ternak",
+                        recycle: "Jadikan kompos untuk tanaman",
+                        tips: "Simpan di kulkas dan habiskan dalam 2-3 hari",
                         image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Kulit Buah",
                         description: "Kulit pisang, jeruk, apel, dan buah lainnya",
-                        tips: "Potong kecil untuk mempercepat kompos atau dijadikan pupuk cair",
+                        reduce: "Beli buah organik tanpa lapisan lilin",
+                        reuse: "Kulit jeruk untuk pengharum ruangan alami",
+                        recycle: "Potong kecil untuk mempercepat kompos",
+                        tips: "Jangan campur kulit buah impor dengan kompos",
                         image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Daun Kering",
                         description: "Daun yang gugur dari pohon dan tanaman",
-                        tips: "Campurkan dengan sampah basah untuk keseimbangan kompos",
+                        reduce: "Pilih tanaman yang tidak mudah rontok",
+                        reuse: "Jadikan mulsa untuk melindungi tanaman",
+                        recycle: "Campurkan dengan sampah basah untuk kompos seimbang",
+                        tips: "Kumpulkan saat musim kemarau untuk stok kompos",
                         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Ampas Kopi/Teh",
                         description: "Sisa seduhan kopi dan teh celup",
-                        tips: "Langsung bisa ditaburkan ke tanaman sebagai pupuk alami",
+                        reduce: "Gunakan kopi/teh secukupnya saat menyeduh",
+                        reuse: "Jadikan scrub wajah atau penggosok panci",
+                        recycle: "Langsung taburkan ke tanaman sebagai pupuk",
+                        tips: "Keringkan terlebih dahulu sebelum disimpan",
                         image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Kotoran Hewan",
                         description: "Kotoran dari hewan peliharaan atau ternak",
-                        tips: "Fermentasi terlebih dahulu sebelum dijadikan pupuk",
+                        reduce: "Berikan pakan berkualitas untuk mengurangi volume",
+                        reuse: "Keringkan untuk bahan bakar alternatif",
+                        recycle: "Fermentasi menjadi pupuk organik berkualitas",
+                        tips: "Jangan langsung aplikasi, fermentasi dulu 3-6 bulan",
                         image: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Sisa Sayuran",
                         description: "Tangkai, batang, dan bagian sayur yang tidak dimakan",
-                        tips: "Rebus untuk kaldu atau langsung kompos",
+                        reduce: "Gunakan seluruh bagian sayur yang bisa dimakan",
+                        reuse: "Rebus untuk kaldu sayuran yang bergizi",
+                        recycle: "Campurkan ke kompos untuk nutrisi lengkap",
+                        tips: "Tangkai brokoli dan daun wortel masih bergizi",
                         image: "https://images.unsplash.com/photo-1574594919318-58f8d863ed8c?w=400&h=300&fit=crop&crop=center"
                     }
                 ],
@@ -412,37 +441,55 @@
                     {
                         name: "Botol Plastik",
                         description: "Botol air minum, botol deterjen, botol shampoo",
+                        reduce: "Gunakan botol isi ulang dan hindari air kemasan",
+                        reuse: "Potong menjadi pot tanaman atau tempat pensil",
+                        recycle: "Kumpulkan dan jual ke bank sampah untuk didaur ulang",
                         tips: "Cuci bersih dan lepas label sebelum didaur ulang",
                         image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Kaleng Minuman",
                         description: "Kaleng soda, kaleng susu, kaleng makanan",
-                        tips: "Bilas dan penyok sedikit untuk menghemat ruang",
+                        reduce: "Pilih minuman dalam kemasan kaca atau beli dalam jumlah besar",
+                        reuse: "Jadikan pot tanaman atau tempat penyimpanan",
+                        recycle: "Bilas bersih dan kumpulkan untuk dijual",
+                        tips: "Penyok sedikit untuk menghemat ruang penyimpanan",
                         image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Kertas & Kardus",
                         description: "Koran, majalah, kardus kemasan",
+                        reduce: "Berlangganan koran digital dan gunakan kemasan ulang",
+                        reuse: "Jadikan kertas bekas untuk menulis atau pembungkus",
+                        recycle: "Pisahkan dari sampah lain dan jual ke pengepul",
                         tips: "Pastikan kering dan tidak terkontaminasi makanan",
                         image: "https://images.unsplash.com/photo-1485145782098-4f5fd605a66b?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Kantong Plastik",
                         description: "Kantong belanja, plastik kemasan",
-                        tips: "Kumpulkan dalam satu kantong besar untuk didaur ulang",
+                        reduce: "Bawa tas belanja sendiri dan tolak kantong plastik",
+                        reuse: "Gunakan ulang untuk belanja atau tempat sampah kecil",
+                        recycle: "Kumpulkan dan bawa ke drop box di supermarket",
+                        tips: "Lipat rapi dan simpan dalam satu kantong besar",
                         image: "https://images.unsplash.com/photo-1573511860302-28c524319d2a?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Botol Kaca",
                         description: "Botol minuman, jar selai, botol parfum",
-                        tips: "Lepas tutup dan cuci bersih sebelum didaur ulang",
+                        reduce: "Pilih produk dengan kemasan yang bisa diisi ulang",
+                        reuse: "Jadikan vas bunga atau tempat penyimpanan",
+                        recycle: "Lepas tutup dan cuci bersih sebelum didaur ulang",
+                        tips: "Pisahkan berdasarkan warna untuk proses daur ulang",
                         image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Kemasan Tetra Pack",
                         description: "Kemasan susu, jus, santan kotak",
-                        tips: "Cuci dan lipat untuk menghemat ruang pengangkutan",
+                        reduce: "Beli produk dalam kemasan besar atau gelas",
+                        reuse: "Potong menjadi tempat penyimpanan atau mainan",
+                        recycle: "Cuci bersih dan lipat untuk menghemat ruang",
+                        tips: "Pisahkan lapisan plastik jika memungkinkan",
                         image: "https://images.unsplash.com/photo-1563379091817-c0f8b073b32b?w=400&h=300&fit=crop&crop=center"
                     }
                 ],
@@ -505,37 +552,55 @@
                     {
                         name: "Baterai Bekas",
                         description: "Baterai AA, AAA, baterai laptop, powerbank rusak",
-                        tips: "Jangan dibuang sembarangan, bawa ke toko elektronik yang menerima",
+                        reduce: "Gunakan baterai rechargeable dan perangkat dengan daya tahan lama",
+                        reuse: "Gunakan untuk perangkat dengan kebutuhan daya rendah",
+                        recycle: "Kumpulkan dan bawa ke toko elektronik yang menerima",
+                        tips: "Jangan dibuang ke tempat sampah biasa",
                         image: "https://images.unsplash.com/photo-1609592804253-6d80f5168d9a?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Obat Kedaluwarsa",
                         description: "Tablet, sirup, salep yang sudah expired",
-                        tips: "Kembalikan ke apotek atau puskesmas untuk dimusnahkan dengan benar",
+                        reduce: "Beli obat sesuai kebutuhan dan periksa tanggal kadaluwarsa",
+                        reuse: "Tidak direkomendasikan untuk keamanan",
+                        recycle: "Kembalikan ke apotek untuk dimusnahkan dengan benar",
+                        tips: "Jangan buang ke toilet atau tempat sampah biasa",
                         image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Cat & Thinner",
                         description: "Sisa cat tembok, cat kayu, thinner, solvent",
-                        tips: "Keringkan sisa cat sebelum dibuang atau bawa ke tempat khusus",
+                        reduce: "Hitung kebutuhan cat dengan tepat sebelum membeli",
+                        reuse: "Simpan sisa cat untuk touch-up di masa mendatang",
+                        recycle: "Keringkan sisa cat atau bawa ke tempat khusus",
+                        tips: "Jangan tuang ke saluran air atau tanah",
                         image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Lampu Neon",
                         description: "Lampu TL, lampu mercury, LED rusak",
-                        tips: "Bungkus dengan hati-hati dan bawa ke tempat daur ulang khusus",
+                        reduce: "Pilih lampu LED yang lebih tahan lama",
+                        reuse: "Gunakan lampu yang masih berfungsi untuk area lain",
+                        recycle: "Bungkus dengan hati-hati dan bawa ke tempat daur ulang khusus",
+                        tips: "Hindari memecahkan karena mengandung merkuri",
                         image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Cartridge Printer",
                         description: "Tinta printer, toner laser yang habis",
-                        tips: "Kembalikan ke toko komputer atau ikuti program refill",
+                        reduce: "Print seperlunya dan gunakan mode draft untuk dokumen internal",
+                        reuse: "Refill cartridge atau gunakan untuk printer lain",
+                        recycle: "Kembalikan ke toko komputer atau ikuti program take-back",
+                        tips: "Jangan bongkar sendiri karena tinta bisa berbahaya",
                         image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Pestisida",
                         description: "Obat pembasmi serangga, herbisida, fungisida",
-                        tips: "Jangan dicampur dengan sampah lain, bawa ke tempat khusus",
+                        reduce: "Gunakan metode organik dan pestisida alami",
+                        reuse: "Simpan dengan benar untuk penggunaan selanjutnya",
+                        recycle: "Bawa ke dinas pertanian atau tempat pengolahan khusus",
+                        tips: "Jangan campur dengan sampah lain atau tuang ke tanah",
                         image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop&crop=center"
                     }
                 ],
@@ -598,37 +663,55 @@
                     {
                         name: "Smartphone & Tablet",
                         description: "HP, tablet, smartwatch yang rusak atau obsolete",
-                        tips: "Hapus data pribadi sebelum menyerahkan untuk didaur ulang",
+                        reduce: "Gunakan protector dan rawat dengan baik untuk memperpanjang umur",
+                        reuse: "Jadikan pemutar musik, kamera keamanan, atau donasi",
+                        recycle: "Ikuti program trade-in atau bawa ke service center",
+                        tips: "Hapus data pribadi dan backup sebelum menyerahkan",
                         image: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Laptop & PC",
                         description: "Komputer, laptop, motherboard yang rusak",
-                        tips: "Backup data penting dan format hard drive sebelum dibuang",
+                        reduce: "Rawat dengan baik dan hindari upgrade yang tidak perlu",
+                        reuse: "Jadikan server rumahan atau donasi untuk pendidikan",
+                        recycle: "Bawa ke toko komputer atau e-waste collection point",
+                        tips: "Format hard drive dan hapus semua data pribadi",
                         image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "TV & Monitor",
                         description: "Televisi CRT, LCD, LED, monitor komputer",
-                        tips: "Bawa ke tempat khusus karena mengandung timbal dan merkuri",
+                        reduce: "Pilih TV berkualitas dan gunakan voltage stabilizer",
+                        reuse: "Gunakan sebagai monitor kedua atau untuk gaming retro",
+                        recycle: "Bawa ke tempat khusus karena mengandung timbal",
+                        tips: "Jangan bongkar sendiri karena komponen berbahaya",
                         image: "https://images.unsplash.com/photo-1594736797933-d0a9ba07bb89?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Peralatan Rumah",
                         description: "Kulkas, mesin cuci, AC, microwave rusak",
-                        tips: "Koordinasi dengan tukang service atau penjual baru untuk trade-in",
+                        reduce: "Servis rutin dan gunakan sesuai kapasitas",
+                        reuse: "Jual ke tukang service untuk diperbaiki",
+                        recycle: "Koordinasi dengan program trade-in toko elektronik",
+                        tips: "Lepas freon AC/kulkas sebelum daur ulang",
                         image: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Kabel & Charger",
                         description: "Kabel USB, charger, adaptor yang rusak",
-                        tips: "Kumpulkan dan bawa ke toko elektronik yang menerima",
+                        reduce: "Beli kabel berkualitas dan hindari membengkokkan berlebihan",
+                        reuse: "Gunakan untuk perangkat lain atau buat kabel ekstensi",
+                        recycle: "Kumpulkan dan bawa ke toko elektronik",
+                        tips: "Potong kabel untuk memudahkan pengolahan logam",
                         image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center"
                     },
                     {
                         name: "Audio & Video",
                         description: "Speaker, headphone, kamera digital rusak",
-                        tips: "Cek apakah masih bisa diperbaiki sebelum dibuang",
+                        reduce: "Rawat dengan baik dan simpan di tempat aman",
+                        reuse: "Modifikasi untuk keperluan lain atau spare part",
+                        recycle: "Bawa ke service center atau toko elektronik",
+                        tips: "Cek garansi sebelum memutuskan untuk dibuang",
                         image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center"
                     }
                 ],
@@ -717,7 +800,7 @@
                 </div>
             `).join('');
 
-            // Update examples with images
+            // Update examples with complete 3R information
             const examplesGrid = document.getElementById('examplesGrid');
             examplesGrid.innerHTML = data.examples.map((example, index) => `
                 <div class="detail-card bg-white shadow-xl rounded-3xl overflow-hidden" data-aos="fade-up" data-aos-delay="${index * 100}">
@@ -725,8 +808,33 @@
                     <div class="p-6">
                         <h4 class="text-xl font-bold text-gray-800 mb-3">${example.name}</h4>
                         <p class="text-gray-600 mb-4">${example.description}</p>
-                        <div class="bg-blue-50 p-4 rounded-xl">
-                            <p class="text-sm text-blue-800"><strong>Tips:</strong> ${example.tips}</p>
+                        
+                        <!-- 3R Information -->
+                        <div class="space-y-3 mb-4">
+                            <div class="bg-red-50 p-3 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <span class="r3-badge reduce-badge">REDUCE</span>
+                                </div>
+                                <p class="text-sm text-gray-700">${example.reduce}</p>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <span class="r3-badge reuse-badge">REUSE</span>
+                                </div>
+                                <p class="text-sm text-gray-700">${example.reuse}</p>
+                            </div>
+                            
+                            <div class="bg-green-50 p-3 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <span class="r3-badge recycle-badge">RECYCLE</span>
+                                </div>
+                                <p class="text-sm text-gray-700">${example.recycle}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-3 rounded-lg">
+                            <p class="text-sm text-yellow-800"><i class="fas fa-lightbulb mr-2"></i><strong>Tips:</strong> ${example.tips}</p>
                         </div>
                     </div>
                 </div>
