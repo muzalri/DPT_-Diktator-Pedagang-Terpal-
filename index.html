@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3R untuk Bumi - Reduce, Reuse, Recycle</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="icon.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
@@ -944,29 +945,29 @@
         });
 
         // Add typing effect to hero title
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.innerHTML = '';
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            type();
-        }
+       // function typeWriter(element, text, speed = 100) {
+       //     let i = 0;
+       //     element.innerHTML = '';
+       //     function type() {
+       //         if (i < text.length) {
+       //             element.innerHTML += text.charAt(i);
+       //             i++;
+         //           setTimeout(type, speed);
+       //         }
+       //     }
+       //     type();
+       // }
 
         // Initialize typing effect after page load
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const heroTitle = document.querySelector('.hero h1');
-                if (heroTitle) {
-                    const originalText = heroTitle.textContent;
-                    typeWriter(heroTitle, originalText, 50);
-                }
-            }, 1000);
-        });
+       // window.addEventListener('load', () => {
+       //     setTimeout(() => {
+       //         const heroTitle = document.querySelector('.hero h1');
+       //         if (heroTitle) {
+       //             const originalText = heroTitle.textContent;
+       //             typeWriter(heroTitle, originalText, 50);
+       //         }
+       //     }, 1000);
+       // });
 
         // Add interactive elements to solution cards
         document.querySelectorAll('.card-body').forEach(cardBody => {
