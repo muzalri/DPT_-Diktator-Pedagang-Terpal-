@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="emerald">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Sampahpedia - Ensiklopedia Sampah & 3R</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="icon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #065f46, #047857, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .detail-card {
+            transition: all 0.3s ease;
+            border-radius: 1.5rem;
+        }
+        .detail-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+        .category-organik { background: linear-gradient(135deg, #10b981, #34d399); }
+        .category-anorganik { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+        .category-b3 { background: linear-gradient(135deg, #ef4444, #f87171); }
+        .category-elektronik { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        
+        .category-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 1;
+        }
+        
+        .example-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-base-100">
+    <!-- Navigation -->
+    <nav class="navbar gradient-bg shadow-lg fixed top-0 z-50" data-aos="fade-down">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a href="index.html" class="text-green-700">Beranda</a></li>
+                    <li><a href="peta.html" class="text-green-700">Bank Sampah</a></li>
+                    <li><a href="sampahpedia.html" class="text-green-700">Sampah Pedia</a></li>
+                </ul>
+            </div>
+            <a class="pl-5 normal-case text-xl text-white font-bold">
+                <i class="fas fa-leaf mr-2"></i>EcoLife
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 text-white font-medium">
+                <li><a href="index.html" class="hover:bg-green-600">Beranda</a></li>
+                <li><a href="peta.html" class="hover:bg-green-600">Bank Sampah</a></li>
+                <li><a href="sampahpedia.html" class="hover:bg-green-600">Sampah Pedia</a></li>
+            </ul>
+        </div>
+        <div class="navbar-end">
+            <a href="sampahpedia.html" class="btn btn-ghost text-white">
+                <i class="fas fa-arrow-left mr-2"></i>Kembali
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero min-h-screen gradient-bg relative overflow-hidden pt-20">
+        <div id="heroImage" class="category-image"></div>
+        <div class="hero-content text-center text-white relative z-10">
+            <div class="max-w-4xl" data-aos="fade-up" data-aos-duration="1000">
+                <div class="floating mb-8">
+                    <i id="heroIcon" class="fas fa-seedling text-8xl opacity-20 absolute -top-10 -left-10"></i>
+                    <i class="fas fa-leaf text-6xl opacity-20 absolute -bottom-5 -right-5"></i>
+                </div>
+                <h1 id="categoryTitle" class="text-5xl md:text-7xl mb-6 font-bold leading-tight" data-aos="fade-up" data-aos-delay="200">
+                    Sampah Organik
+                </h1>
+                <p id="categoryDescription" class="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                    Sampah yang berasal dari makhluk hidup dan dapat terurai secara alami oleh mikroorganisme
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="600">
+                    <button class="btn btn-lg bg-white text-green-600 hover:bg-green-50 border-none shadow-xl" onclick="scrollToDetails()">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Pelajari Detail
+                    </button>
+                    <button class="btn btn-lg btn-outline text-white border-white hover:bg-white hover:text-green-600" onclick="scrollToExamples()">
+                        <i class="fas fa-list mr-2"></i>
+                        Lihat Contoh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Details -->
+    <section id="details" class="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6">
+                    <i class="fas fa-info-circle mr-3"></i>Detail Informasi
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Pelajari karakteristik, cara pengelolaan, dan dampak lingkungan dari kategori sampah ini
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Characteristics -->
+                <div class="detail-card bg-white shadow-xl rounded-3xl p-8" data-aos="fade-right">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
+                            <i class="fas fa-microscope text-3xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Karakteristik</h3>
+                    </div>
+                    <div id="characteristicsContent" class="space-y-4">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Environmental Impact -->
+                <div class="detail-card bg-white shadow-xl rounded-3xl p-8" data-aos="fade-left">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
+                            <i class="fas fa-exclamation-triangle text-3xl text-red-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Dampak Lingkungan</h3>
+                    </div>
+                    <div id="impactContent" class="space-y-4">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3R Management -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="detail-card bg-white shadow-xl rounded-3xl p-8" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
+                            <i class="fas fa-minus-circle text-3xl text-red-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Reduce (Kurangi)</h3>
+                    </div>
+                    <div id="reduceContent" class="space-y-3">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="detail-card bg-white shadow-xl rounded-3xl p-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-redo text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Reuse (Gunakan Ulang)</h3>
+                    </div>
+                    <div id="reuseContent" class="space-y-3">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="detail-card bg-white shadow-xl rounded-3xl p-8" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
+                            <i class="fas fa-recycle text-3xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Recycle (Daur Ulang)</h3>
+                    </div>
+                    <div id="recycleContent" class="space-y-3">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section id="examples" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6">
+                    <i class="fas fa-list mr-3"></i>Contoh Sampah
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Berbagai jenis sampah yang termasuk dalam kategori ini beserta cara pengelolaannya
+                </p>
+            </div>
+
+            <div id="examplesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Examples will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6">
+                    <i class="fas fa-lightbulb mr-3"></i>Tips Praktis
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Panduan praktis untuk mengelola sampah kategori ini di rumah Anda
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="detail-card bg-white shadow-xl rounded-3xl p-8" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-home text-green-600 mr-3"></i>
+                            Di Rumah
+                        </h3>
+                        <div id="homeTips" class="space-y-4">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="detail-card bg-white shadow-xl rounded-3xl p-8" data-aos="fade-left">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-users text-blue-600 mr-3"></i>
+                            Untuk Komunitas
+                        </h3>
+                        <div id="communityTips" class="space-y-4">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-gradient-to-r from-green-800 to-emerald-800 text-white">
+        <aside>
+            <div class="text-4xl mb-4">
+                <i class="fas fa-book"></i>
+            </div>
+            <p class="font-bold text-xl">Sampahpedia</p>
+            <p class="opacity-80">Detail Ensiklopedia Sampah untuk Bumi yang Lebih Bersih</p>
+            <p class="opacity-60">Copyright © 2025 - Dibuat dengan ❤️ untuk Edukasi Lingkungan</p>
+        </aside>
+    </footer>
+
+    <script>
+        // Category data with Unsplash images
+        const categoryData = {
+            organik: {
+                title: "Sampah Organik",
+                description: "Sampah yang berasal dari makhluk hidup dan dapat terurai secara alami oleh mikroorganisme",
+                icon: "fas fa-seedling",
+                heroImage: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=800&fit=crop&crop=center",
+                characteristics: [
+                    "Mudah membusuk dan berbau",
+                    "Dapat terurai dalam 2-6 bulan",
+                    "Mengandung senyawa organik",
+                    "Dapat dijadikan kompos",
+                    "Sumber nutrisi untuk tanaman"
+                ],
+                impact: [
+                    "Menghasilkan gas metana jika tidak dikelola",
+                    "Mencemari air tanah jika menumpuk",
+                    "Menarik lalat dan hewan pengerat",
+                    "Dapat menyebabkan penyakit jika membusuk",
+                    "Namun bermanfaat sebagai pupuk alami"
+                ],
+                reduce: [
+                    "Masak makanan secukupnya",
+                    "Simpan makanan dengan benar",
+                    "Habiskan makanan sebelum basi",
+                    "Rencanakan menu harian",
+                    "Beli bahan makanan sesuai kebutuhan"
+                ],
+                reuse: [
+                    "Sisa sayuran untuk kaldu",
+                    "Kulit buah untuk masker wajah",
+                    "Ampas teh/kopi untuk scrub",
+                    "Sisa nasi untuk makanan ternak",
+                    "Daun pisang untuk pembungkus"
+                ],
+                recycle: [
+                    "Buat kompos dengan metode takakura",
+                    "Gunakan komposter rumahan",
+                    "Fermentasi menjadi pupuk cair",
+                    "Buat biogas sederhana",
+                    "Berikan ke bank sampah organik"
+                ],
+                examples: [
+                    {
+                        name: "Sisa Makanan",
+                        description: "Nasi, sayur, buah yang tidak habis dimakan",
+                        tips: "Jadikan kompos atau pakan ternak setelah dipastikan aman",
+                        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Kulit Buah",
+                        description: "Kulit pisang, jeruk, apel, dan buah lainnya",
+                        tips: "Potong kecil untuk mempercepat kompos atau dijadikan pupuk cair",
+                        image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Daun Kering",
+                        description: "Daun yang gugur dari pohon dan tanaman",
+                        tips: "Campurkan dengan sampah basah untuk keseimbangan kompos",
+                        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Ampas Kopi/Teh",
+                        description: "Sisa seduhan kopi dan teh celup",
+                        tips: "Langsung bisa ditaburkan ke tanaman sebagai pupuk alami",
+                        image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Kotoran Hewan",
+                        description: "Kotoran dari hewan peliharaan atau ternak",
+                        tips: "Fermentasi terlebih dahulu sebelum dijadikan pupuk",
+                        image: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Sisa Sayuran",
+                        description: "Tangkai, batang, dan bagian sayur yang tidak dimakan",
+                        tips: "Rebus untuk kaldu atau langsung kompos",
+                        image: "https://images.unsplash.com/photo-1574594919318-58f8d863ed8c?w=400&h=300&fit=crop&crop=center"
+                    }
+                ],
+                homeTips: [
+                    "Pisahkan sampah organik di wadah terpisah",
+                    "Gunakan kantong kertas atau daun untuk wadah",
+                    "Buang sampah organik setiap hari",
+                    "Buat kompos mini di halaman belakang",
+                    "Simpan di freezer jika tidak langsung dibuang"
+                ],
+                communityTips: [
+                    "Bentuk kelompok kompos bersama",
+                    "Buat bank sampah organik komunal",
+                    "Adakan pelatihan pembuatan kompos",
+                    "Sediakan tempat pengolahan bersama",
+                    "Bagikan hasil kompos untuk taman kota"
+                ]
+            },
+            anorganik: {
+                title: "Sampah Anorganik",
+                description: "Sampah yang tidak dapat terurai secara alami atau membutuhkan waktu sangat lama untuk terurai",
+                icon: "fas fa-recycle",
+                heroImage: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=1200&h=800&fit=crop&crop=center",
+                characteristics: [
+                    "Tidak mudah membusuk",
+                    "Terurai dalam waktu sangat lama (puluhan hingga ratusan tahun)",
+                    "Terbuat dari bahan sintetis atau mineral",
+                    "Dapat didaur ulang berkali-kali",
+                    "Memiliki nilai ekonomi tinggi"
+                ],
+                impact: [
+                    "Mencemari tanah dan air dalam jangka panjang",
+                    "Mengancam kehidupan satwa laut",
+                    "Memenuhi tempat pembuangan akhir",
+                    "Membutuhkan ratusan tahun untuk terurai",
+                    "Menghasilkan mikroplastik berbahaya"
+                ],
+                reduce: [
+                    "Gunakan produk yang dapat digunakan berulang",
+                    "Hindari kemasan sekali pakai",
+                    "Pilih produk dengan kemasan minimal",
+                    "Bawa tas belanja sendiri",
+                    "Gunakan botol minum yang dapat diisi ulang"
+                ],
+                reuse: [
+                    "Botol plastik jadi pot tanaman",
+                    "Kaleng bekas jadi wadah pensil",
+                    "Kardus jadi mainan anak",
+                    "Kantong plastik untuk sampah kecil",
+                    "Kaca jar jadi wadah penyimpanan"
+                ],
+                recycle: [
+                    "Kumpulkan dan jual ke bank sampah",
+                    "Pilah berdasarkan jenis material",
+                    "Bersihkan sebelum didaur ulang",
+                    "Bawa ke drop box di mall",
+                    "Tukar dengan produk baru (program trade-in)"
+                ],
+                examples: [
+                    {
+                        name: "Botol Plastik",
+                        description: "Botol air minum, botol deterjen, botol shampoo",
+                        tips: "Cuci bersih dan lepas label sebelum didaur ulang",
+                        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Kaleng Minuman",
+                        description: "Kaleng soda, kaleng susu, kaleng makanan",
+                        tips: "Bilas dan penyok sedikit untuk menghemat ruang",
+                        image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Kertas & Kardus",
+                        description: "Koran, majalah, kardus kemasan",
+                        tips: "Pastikan kering dan tidak terkontaminasi makanan",
+                        image: "https://images.unsplash.com/photo-1485145782098-4f5fd605a66b?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Kantong Plastik",
+                        description: "Kantong belanja, plastik kemasan",
+                        tips: "Kumpulkan dalam satu kantong besar untuk didaur ulang",
+                        image: "https://images.unsplash.com/photo-1573511860302-28c524319d2a?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Botol Kaca",
+                        description: "Botol minuman, jar selai, botol parfum",
+                        tips: "Lepas tutup dan cuci bersih sebelum didaur ulang",
+                        image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Kemasan Tetra Pack",
+                        description: "Kemasan susu, jus, santan kotak",
+                        tips: "Cuci dan lipat untuk menghemat ruang pengangkutan",
+                        image: "https://images.unsplash.com/photo-1563379091817-c0f8b073b32b?w=400&h=300&fit=crop&crop=center"
+                    }
+                ],
+                homeTips: [
+                    "Sediakan tempat sampah terpisah untuk anorganik",
+                    "Cuci bersih sebelum menyimpan",
+                    "Kelompokkan berdasarkan jenis material",
+                    "Kumpulkan hingga jumlah yang cukup",
+                    "Manfaatkan nilai ekonomis dengan menjual"
+                ],
+                communityTips: [
+                    "Bentuk bank sampah RT/RW",
+                    "Adakan car free day dengan tema daur ulang",
+                    "Koordinasi dengan petugas kebersihan",
+                    "Buat program reward untuk warga aktif",
+                    "Kerjasama dengan industri daur ulang"
+                ]
+            },
+            b3: {
+                title: "Sampah B3 (Bahan Berbahaya & Beracun)",
+                description: "Sampah yang mengandung bahan berbahaya dan beracun yang memerlukan penanganan khusus",
+                icon: "fas fa-skull-crossbones",
+                heroImage: "https://images.unsplash.com/photo-1550029402-226115b7c579?w=1200&h=800&fit=crop&crop=center",
+                characteristics: [
+                    "Mengandung zat kimia berbahaya",
+                    "Dapat meracuni makhluk hidup",
+                    "Mudah terbakar atau meledak",
+                    "Korosif dan reaktif",
+                    "Memerlukan penanganan khusus"
+                ],
+                impact: [
+                    "Mencemari tanah dan air tanah",
+                    "Meracuni rantai makanan",
+                    "Menyebabkan kanker dan penyakit serius",
+                    "Merusak ekosistem secara permanen",
+                    "Berbahaya bagi petugas kebersihan"
+                ],
+                reduce: [
+                    "Gunakan produk ramah lingkungan",
+                    "Pilih baterai rechargeable",
+                    "Kurangi penggunaan pestisida",
+                    "Gunakan obat sesuai takaran",
+                    "Pilih cat dan tinta water based"
+                ],
+                reuse: [
+                    "Baterai yang masih berfungsi untuk perangkat lain",
+                    "Wadah cat untuk menyimpan hal lain (setelah dibersihkan)",
+                    "Kemasan obat untuk apotek kecil",
+                    "Lampu bekas untuk eksperimen",
+                    "Cartridge printer untuk refill"
+                ],
+                recycle: [
+                    "Bawa ke tempat khusus daur ulang B3",
+                    "Kembalikan ke toko yang menyediakan program take-back",
+                    "Serahkan ke fasilitas pengolahan B3",
+                    "Ikuti program dari pemerintah",
+                    "Kumpulkan dalam jumlah besar untuk efisiensi"
+                ],
+                examples: [
+                    {
+                        name: "Baterai Bekas",
+                        description: "Baterai AA, AAA, baterai laptop, powerbank rusak",
+                        tips: "Jangan dibuang sembarangan, bawa ke toko elektronik yang menerima",
+                        image: "https://images.unsplash.com/photo-1609592804253-6d80f5168d9a?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Obat Kedaluwarsa",
+                        description: "Tablet, sirup, salep yang sudah expired",
+                        tips: "Kembalikan ke apotek atau puskesmas untuk dimusnahkan dengan benar",
+                        image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Cat & Thinner",
+                        description: "Sisa cat tembok, cat kayu, thinner, solvent",
+                        tips: "Keringkan sisa cat sebelum dibuang atau bawa ke tempat khusus",
+                        image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Lampu Neon",
+                        description: "Lampu TL, lampu mercury, LED rusak",
+                        tips: "Bungkus dengan hati-hati dan bawa ke tempat daur ulang khusus",
+                        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Cartridge Printer",
+                        description: "Tinta printer, toner laser yang habis",
+                        tips: "Kembalikan ke toko komputer atau ikuti program refill",
+                        image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Pestisida",
+                        description: "Obat pembasmi serangga, herbisida, fungisida",
+                        tips: "Jangan dicampur dengan sampah lain, bawa ke tempat khusus",
+                        image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop&crop=center"
+                    }
+                ],
+                homeTips: [
+                    "Simpan terpisah di wadah kedap udara",
+                    "Jauhkan dari jangkauan anak-anak",
+                    "Beri label 'BERBAHAYA' pada wadah",
+                    "Kumpulkan hingga jumlah yang memadai",
+                    "Cari informasi tempat pengolahan terdekat"
+                ],
+                communityTips: [
+                    "Adakan hari khusus pengumpulan B3",
+                    "Sosialisasi bahaya membuang B3 sembarangan",
+                    "Koordinasi dengan dinas lingkungan hidup",
+                    "Buat titik kumpul sementara yang aman",
+                    "Edukasi tentang alternatif produk ramah lingkungan"
+                ]
+            },
+            elektronik: {
+                title: "Sampah Elektronik (E-Waste)",
+                description: "Perangkat elektronik yang sudah tidak terpakai dan mengandung komponen berbahaya serta logam berharga",
+                icon: "fas fa-mobile-alt",
+                heroImage: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&h=800&fit=crop&crop=center",
+                characteristics: [
+                    "Mengandung logam berharga (emas, perak, tembaga)",
+                    "Memiliki komponen berbahaya (timbal, merkuri)",
+                    "Berkembang pesat seiring teknologi",
+                    "Memiliki nilai ekonomi tinggi",
+                    "Kompleks dalam penanganan"
+                ],
+                impact: [
+                    "Pencemaran logam berat ke tanah dan air",
+                    "Pemborosan sumber daya alam",
+                    "Penumpukan limbah yang sulit terurai",
+                    "Risiko kesehatan bagi pemulung",
+                    "Kehilangan material berharga"
+                ],
+                reduce: [
+                    "Rawat perangkat elektronik dengan baik",
+                    "Gunakan protector dan case pelindung",
+                    "Hindari upgrade yang tidak perlu",
+                    "Pilih produk berkualitas dan tahan lama",
+                    "Matikan perangkat saat tidak digunakan"
+                ],
+                reuse: [
+                    "Smartphone lama jadi pemutar musik",
+                    "Laptop rusak jadi monitor eksternal",
+                    "TV lama untuk CCTV",
+                    "Donasi ke yang membutuhkan",
+                    "Jual sebagai spare part"
+                ],
+                recycle: [
+                    "Bawa ke service center resmi",
+                    "Ikuti program trade-in dari produsen",
+                    "Jual ke toko elektronik bekas",
+                    "Bawa ke e-waste collection point",
+                    "Serahkan ke perusahaan daur ulang elektronik"
+                ],
+                examples: [
+                    {
+                        name: "Smartphone & Tablet",
+                        description: "HP, tablet, smartwatch yang rusak atau obsolete",
+                        tips: "Hapus data pribadi sebelum menyerahkan untuk didaur ulang",
+                        image: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Laptop & PC",
+                        description: "Komputer, laptop, motherboard yang rusak",
+                        tips: "Backup data penting dan format hard drive sebelum dibuang",
+                        image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "TV & Monitor",
+                        description: "Televisi CRT, LCD, LED, monitor komputer",
+                        tips: "Bawa ke tempat khusus karena mengandung timbal dan merkuri",
+                        image: "https://images.unsplash.com/photo-1594736797933-d0a9ba07bb89?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Peralatan Rumah",
+                        description: "Kulkas, mesin cuci, AC, microwave rusak",
+                        tips: "Koordinasi dengan tukang service atau penjual baru untuk trade-in",
+                        image: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Kabel & Charger",
+                        description: "Kabel USB, charger, adaptor yang rusak",
+                        tips: "Kumpulkan dan bawa ke toko elektronik yang menerima",
+                        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center"
+                    },
+                    {
+                        name: "Audio & Video",
+                        description: "Speaker, headphone, kamera digital rusak",
+                        tips: "Cek apakah masih bisa diperbaiki sebelum dibuang",
+                        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center"
+                    }
+                ],
+                homeTips: [
+                    "Hapus semua data pribadi sebelum membuang",
+                    "Simpan di tempat kering terpisah",
+                    "Lepaskan baterai jika memungkinkan",
+                    "Kumpulkan berbagai jenis e-waste sekaligus",
+                    "Cari tahu program take-back dari produsen"
+                ],
+                communityTips: [
+                    "Adakan e-waste collection day",
+                    "Kerjasama dengan toko elektronik lokal",
+                    "Sosialisasi bahaya membuang e-waste sembarangan",
+                    "Bentuk komunitas sharing dan repair",
+                    "Koordinasi dengan dinas terkait"
+                ]
+            }
+        };
+
+        // Get category from URL parameter
+        function getCategoryFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('kategori') || 'organik';
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50
+            });
+
+            const category = getCategoryFromURL();
+            loadCategoryData(category);
+        });
+
+        function loadCategoryData(category) {
+            const data = categoryData[category];
+            if (!data) return;
+
+            // Update hero section
+            document.getElementById('categoryTitle').textContent = data.title;
+            document.getElementById('categoryDescription').textContent = data.description;
+            document.getElementById('heroIcon').className = `${data.icon} text-8xl opacity-20 absolute -top-10 -left-10`;
+            document.getElementById('heroImage').style.backgroundImage = `url(${data.heroImage})`;
+
+            // Update characteristics
+            const characteristicsContent = document.getElementById('characteristicsContent');
+            characteristicsContent.innerHTML = data.characteristics.map(item => `
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                    <span class="text-gray-700">${item}</span>
+                </div>
+            `).join('');
+
+            // Update impact
+            const impactContent = document.getElementById('impactContent');
+            impactContent.innerHTML = data.impact.map(item => `
+                <div class="flex items-start">
+                    <i class="fas fa-exclamation-circle text-red-500 mr-3 mt-1"></i>
+                    <span class="text-gray-700">${item}</span>
+                </div>
+            `).join('');
+
+            // Update 3R content
+            document.getElementById('reduceContent').innerHTML = data.reduce.map(item => `
+                <div class="flex items-start">
+                    <i class="fas fa-minus text-red-500 mr-3 mt-1 text-sm"></i>
+                    <span class="text-gray-700 text-sm">${item}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('reuseContent').innerHTML = data.reuse.map(item => `
+                <div class="flex items-start">
+                    <i class="fas fa-redo text-blue-500 mr-3 mt-1 text-sm"></i>
+                    <span class="text-gray-700 text-sm">${item}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('recycleContent').innerHTML = data.recycle.map(item => `
+                <div class="flex items-start">
+                    <i class="fas fa-recycle text-green-500 mr-3 mt-1 text-sm"></i>
+                    <span class="text-gray-700 text-sm">${item}</span>
+                </div>
+            `).join('');
+
+            // Update examples with images
+            const examplesGrid = document.getElementById('examplesGrid');
+            examplesGrid.innerHTML = data.examples.map((example, index) => `
+                <div class="detail-card bg-white shadow-xl rounded-3xl overflow-hidden" data-aos="fade-up" data-aos-delay="${index * 100}">
+                    <img src="${example.image}" alt="${example.name}" class="example-image">
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">${example.name}</h4>
+                        <p class="text-gray-600 mb-4">${example.description}</p>
+                        <div class="bg-blue-50 p-4 rounded-xl">
+                            <p class="text-sm text-blue-800"><strong>Tips:</strong> ${example.tips}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update tips
+            document.getElementById('homeTips').innerHTML = data.homeTips.map(tip => `
+                <div class="flex items-start">
+                    <i class="fas fa-home text-green-500 mr-3 mt-1"></i>
+                    <span class="text-gray-700">${tip}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('communityTips').innerHTML = data.communityTips.map(tip => `
+                <div class="flex items-start">
+                    <i class="fas fa-users text-blue-500 mr-3 mt-1"></i>
+                    <span class="text-gray-700">${tip}</span>
+                </div>
+            `).join('');
+        }
+
+        function scrollToDetails() {
+            document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToExamples() {
+            document.getElementById('examples').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

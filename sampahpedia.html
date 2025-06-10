@@ -58,7 +58,6 @@
 </head>
 <body class="bg-base-100">
     <!-- Navigation -->
-     <!-- Navigation -->
     <nav class="navbar gradient-bg shadow-lg fixed top-0 z-50" data-aos="fade-down">
         <div class="navbar-start">
             <div class="dropdown">
@@ -440,35 +439,39 @@
             }
         ];
 
-        // Waste categories for encyclopedia
+        // Waste categories for encyclopedia with URL mapping
         const wasteCategories = [
             {
                 name: "Sampah Organik",
                 icon: "fas fa-seedling",
                 color: "green",
                 description: "Sampah yang berasal dari makhluk hidup dan dapat terurai secara alami",
-                examples: ["Sisa makanan", "Daun kering", "Kulit buah", "Kotoran hewan"]
+                examples: ["Sisa makanan", "Daun kering", "Kulit buah", "Kotoran hewan"],
+                urlParam: "organik"
             },
             {
                 name: "Sampah Anorganik",
                 icon: "fas fa-recycle",
                 color: "blue",
                 description: "Sampah yang tidak dapat terurai secara alami atau membutuhkan waktu lama",
-                examples: ["Plastik", "Logam", "Kaca", "Kertas"]
+                examples: ["Plastik", "Logam", "Kaca", "Kertas"],
+                urlParam: "anorganik"
             },
             {
                 name: "Sampah B3",
                 icon: "fas fa-skull-crossbones",
                 color: "red",
                 description: "Bahan Berbahaya dan Beracun yang memerlukan penanganan khusus",
-                examples: ["Baterai", "Obat kedaluwarsa", "Cat", "Pestisida"]
+                examples: ["Baterai", "Obat kedaluwarsa", "Cat", "Pestisida"],
+                urlParam: "b3"
             },
             {
                 name: "Sampah Elektronik",
                 icon: "fas fa-mobile-alt",
                 color: "purple",
                 description: "Perangkat elektronik yang sudah tidak terpakai dan mengandung bahan berbahaya",
-                examples: ["Smartphone", "Laptop", "TV", "Kulkas"]
+                examples: ["Smartphone", "Laptop", "TV", "Kulkas"],
+                urlParam: "elektronik"
             }
         ];
 
@@ -541,7 +544,7 @@
                                 </div>
                                 `).join('')}
                             </div>
-                            <button class="mt-6 w-full px-4 py-2 bg-${category.color}-50 text-${category.color}-600 rounded-xl font-medium hover:bg-${category.color}-100 transition-colors flex items-center justify-center">
+                            <button class="mt-6 w-full px-4 py-2 bg-${category.color}-50 text-${category.color}-600 rounded-xl font-medium hover:bg-${category.color}-100 transition-colors flex items-center justify-center" onclick="goToDetailPage('${category.urlParam}')">
                                 <i class="fas fa-arrow-right mr-2"></i>
                                 Pelajari Detail
                             </button>
@@ -551,6 +554,11 @@
                 
                 container.appendChild(card);
             });
+        }
+
+        // Function to redirect to detail page
+        function goToDetailPage(kategori) {
+            window.location.href = `detail-sampahpedia.html?kategori=${kategori}`;
         }
 
         function initDataTable() {
